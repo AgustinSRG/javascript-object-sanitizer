@@ -2,7 +2,7 @@
 
 "use strict";
 
-import { CustomSanitizeSchema } from "../schema-raw";
+import { CustomSanitizeRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
 /**
@@ -18,7 +18,7 @@ export class CustomObjectSchema extends AbstractObjectSchema {
         return new CustomObjectSchema(() => true, a => a);
     }
 
-    private schema: CustomSanitizeSchema;
+    private schema: CustomSanitizeRawSchema;
 
     /**
      * Constructor
@@ -31,7 +31,7 @@ export class CustomObjectSchema extends AbstractObjectSchema {
             $sanitize: sanitize,
             $test: test,
         });
-        this.schema = <CustomSanitizeSchema>this.getRawSchema();
+        this.schema = <CustomSanitizeRawSchema>this.getRawSchema();
     }
 
     /**

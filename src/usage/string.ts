@@ -2,7 +2,7 @@
 
 "use strict";
 
-import { StringSchema } from "../schema-raw";
+import { StringRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
 /**
@@ -17,7 +17,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
         return new StringObjectSchema();
     }
 
-    private schema: StringSchema;
+    private schema: StringRawSchema;
 
     /**
      * Constructor
@@ -26,7 +26,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
         super({
             $type: "string",
         });
-        this.schema = <StringSchema>this.getRawSchema();
+        this.schema = <StringRawSchema>this.getRawSchema();
     }
 
     /**

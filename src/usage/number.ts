@@ -2,7 +2,7 @@
 
 "use strict";
 
-import { NumberSchema } from "../schema-raw";
+import { NumberRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
 export class NumberObjectSchema extends AbstractObjectSchema {
@@ -14,7 +14,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
         return new NumberObjectSchema();
     }
 
-    private schema: NumberSchema;
+    private schema: NumberRawSchema;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
             $nan: false,
             $finite: true,
         });
-        this.schema = <NumberSchema>this.getRawSchema();
+        this.schema = <NumberRawSchema>this.getRawSchema();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 "use strict";
 
-import { BooleanSchema } from "../schema-raw";
+import { BooleanRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
 export class BooleanObjectSchema extends AbstractObjectSchema {
@@ -14,7 +14,7 @@ export class BooleanObjectSchema extends AbstractObjectSchema {
         return new BooleanObjectSchema();
     }
 
-    private schema: BooleanSchema;
+    private schema: BooleanRawSchema;
 
     /**
      * Constructor
@@ -23,7 +23,7 @@ export class BooleanObjectSchema extends AbstractObjectSchema {
         super({
             $type: "boolean",
         });
-        this.schema = <BooleanSchema>this.getRawSchema();
+        this.schema = <BooleanRawSchema>this.getRawSchema();
     }
 
     /**

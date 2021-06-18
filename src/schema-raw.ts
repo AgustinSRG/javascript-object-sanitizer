@@ -3,19 +3,19 @@
 
 "use strict";
 
-export interface CustomSanitizeSchema {
+export interface CustomSanitizeRawSchema {
     $type: "custom";
     $test: (object: any) => boolean;
     $sanitize: (object: any) => any;
 }
 
-export interface BooleanSchema {
+export interface BooleanRawSchema {
     $type: "boolean";
     $default?: boolean;
     $enum?: boolean[];
 }
 
-export interface StringSchema {
+export interface StringRawSchema {
     $type: "string";
     $default?: string;
     $maxLength?: number;
@@ -23,7 +23,7 @@ export interface StringSchema {
     $enum?: string[];
 }
 
-export interface NumberSchema {
+export interface NumberRawSchema {
     $type: "number";
     $default?: number;
     $format?: "double" | "integer";
@@ -34,14 +34,14 @@ export interface NumberSchema {
     $enum?: number[];
 }
 
-export interface ArraySchema {
+export interface ArrayRawSchema {
     $type: "array";
     $default?: any[];
     $maxLength?: number;
     $items: RawObjectSchema;
 }
 
-export interface ObjectSchema {
+export interface ObjectRawSchema {
     $type: "object";
     $default?: any;
     $props?: {[prop: string]: RawObjectSchema};
@@ -49,21 +49,21 @@ export interface ObjectSchema {
     $extraPropsSchema?: (key: string) => RawObjectSchema;
 }
 
-export interface AnyOfSchema {
+export interface AnyOfRawSchema {
     $type: "anyof";
     $default: RawObjectSchema;
     $schemas: RawObjectSchema[];
 }
 
-export interface RecursiveSchema {
+export interface RecursiveRawSchema {
     $type: "recursive";
     $default?: any;
     $ref: number;
     $maxRecursion?: number;
 }
 
-export interface NullOrUndefinedSchema {
+export interface NullOrUndefinedRawSchema {
     $type: "null" | "undefined";
 }
 
-export type RawObjectSchema = CustomSanitizeSchema | NullOrUndefinedSchema | BooleanSchema | StringSchema | NumberSchema | ArraySchema | ObjectSchema | RecursiveSchema | AnyOfSchema;
+export type RawObjectSchema = CustomSanitizeRawSchema | NullOrUndefinedRawSchema | BooleanRawSchema | StringRawSchema | NumberRawSchema | ArrayRawSchema | ObjectRawSchema | RecursiveRawSchema | AnyOfRawSchema;
