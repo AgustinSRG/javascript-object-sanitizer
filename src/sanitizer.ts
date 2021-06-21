@@ -124,6 +124,9 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
         }
     case "recursive":
     {
+        if (object === undefined || object === null) {
+            return schema.$default;
+        }
         const stack = parentStack || [];
         const cr = currentRecursion || 0;
         if (schema.$maxRecursion !== undefined && schema.$maxRecursion < cr) {

@@ -194,6 +194,9 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
         return true;
     case "recursive":
         {
+            if (object === undefined || object === null) {
+                return true;
+            }
             const stack = parentStack || [];
             const cr = currentRecursion || 0;
             if (schema.$maxRecursion !== undefined && schema.$maxRecursion < cr) {
