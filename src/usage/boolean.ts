@@ -5,6 +5,9 @@
 import { BooleanRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
+/**
+ * Schema for boolean
+ */
 export class BooleanObjectSchema extends AbstractObjectSchema {
     /**
      * Creates boolean schema

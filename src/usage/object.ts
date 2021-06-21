@@ -11,7 +11,7 @@ import { AbstractObjectSchema, ObjectSchemaI } from "./schema";
 import { StringObjectSchema } from "./string";
 
 /**
- * Class with static methods to create chemas
+ * Object schema
  */
 export class ObjectSchema extends AbstractObjectSchema {
     /**

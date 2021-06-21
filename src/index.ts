@@ -5,10 +5,12 @@
 
 export { RawObjectSchema } from "./schema-raw";
 
+export * from "./usage/anyof";
 export * from "./usage/array";
 export * from "./usage/boolean";
 export * from "./usage/custom";
 export * from "./usage/number";
 export * from "./usage/object";
+export * from "./usage/recursive";
 export * from "./usage/schema";
 export * from "./usage/string";

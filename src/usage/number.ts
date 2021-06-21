@@ -5,6 +5,9 @@
 import { NumberRawSchema } from "../schema-raw";
 import { AbstractObjectSchema } from "./schema";
 
+/**
+ * Schema for Number
+ */
 export class NumberObjectSchema extends AbstractObjectSchema {
     /**
      * Creates number schema
