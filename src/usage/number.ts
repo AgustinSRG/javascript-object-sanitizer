@@ -36,7 +36,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: number): NumberObjectSchema {
+    public withDefaultValue(defaultValue: number): NumberObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -75,7 +75,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
      * @param min The min value
      * @returns self
      */
-    public setMin(min: number): NumberObjectSchema {
+    public withMin(min: number): NumberObjectSchema {
         this.schema.$min = min;
         return this
     }
@@ -85,7 +85,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
      * @param max The max value
      * @returns self
      */
-    public setMax(max: number): NumberObjectSchema {
+    public withMax(max: number): NumberObjectSchema {
         this.schema.$max = max;
         return this
     }
@@ -95,7 +95,7 @@ export class NumberObjectSchema extends AbstractObjectSchema {
      * @param enumeration The enumeration
      * @returns self
      */
-    public setEnumeration(enumeration: number[]): NumberObjectSchema {
+    public withEnumeration(enumeration: number[]): NumberObjectSchema {
         this.schema.$enum = enumeration;
         return this;
     }

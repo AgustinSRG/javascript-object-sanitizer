@@ -34,7 +34,7 @@ export class BooleanObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: boolean): BooleanObjectSchema {
+    public withDefaultValue(defaultValue: boolean): BooleanObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -44,7 +44,7 @@ export class BooleanObjectSchema extends AbstractObjectSchema {
      * @param enumeration The enumeration
      * @returns self
      */
-    public setEnumeration(enumeration: boolean[]): BooleanObjectSchema {
+    public withEnumeration(enumeration: boolean[]): BooleanObjectSchema {
         this.schema.$enum = enumeration;
         return this;
     }

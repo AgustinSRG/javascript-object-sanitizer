@@ -34,7 +34,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: string): StringObjectSchema {
+    public withDefaultValue(defaultValue: string): StringObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -44,7 +44,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
      * @param maxLength The max length for the string.
      * @returns self
      */
-    public setMaxLength(maxLength: number): StringObjectSchema {
+    public withMaxLength(maxLength: number): StringObjectSchema {
         this.schema.$maxLength = maxLength;
         return this;
     }
@@ -54,7 +54,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
      * @param regExp The regular expression
      * @returns self
      */
-    public setRegularExpression(regExp: RegExp): StringObjectSchema {
+    public withRegularExpression(regExp: RegExp): StringObjectSchema {
         this.schema.$match = regExp;
         return this;
     }
@@ -64,7 +64,7 @@ export class StringObjectSchema extends AbstractObjectSchema {
      * @param enumeration The enumeration
      * @returns self
      */
-    public setEnumeration(enumeration: string[]): StringObjectSchema {
+    public withEnumeration(enumeration: string[]): StringObjectSchema {
         this.schema.$enum = enumeration;
         return this;
     }

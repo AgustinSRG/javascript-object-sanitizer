@@ -35,7 +35,7 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
      * @param up Levels to raise in the schema
      * @returns self
      */
-    public setLevelsUp(up: number): RecursiveObjectSchema {
+    public withReference(up: number): RecursiveObjectSchema {
         this.schema.$ref = up;
         return this;
     }
@@ -45,7 +45,7 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: any): RecursiveObjectSchema {
+    public withDefaultValue(defaultValue: any): RecursiveObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -55,7 +55,7 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
      * @param maxRecursion Max levels of recursion allowed
      * @returns self
      */
-    public setMaxRecursion(maxRecursion: number): RecursiveObjectSchema {
+    public withMaxRecursion(maxRecursion: number): RecursiveObjectSchema {
         this.schema.$maxRecursion = maxRecursion;
         return this;
     }

@@ -3,10 +3,12 @@
 "use strict";
 
 import { ObjectRawSchema } from "../schema-raw";
+import { AnyOfObjectSchema } from "./anyof";
 import { ArrayObjectSchema } from "./array";
 import { BooleanObjectSchema } from "./boolean";
 import { CustomObjectSchema } from "./custom";
 import { NumberObjectSchema } from "./number";
+import { RecursiveObjectSchema } from "./recursive";
 import { AbstractObjectSchema, ObjectSchemaI } from "./schema";
 import { StringObjectSchema } from "./string";
 
@@ -71,6 +73,35 @@ export class ObjectSchema extends AbstractObjectSchema {
         return ArrayObjectSchema.create(itemsSchema);
     }
 
+    /**
+     * Schema for recursive references
+     * @returns a new schema instance
+     */
+    public static recursive(): RecursiveObjectSchema {
+        return RecursiveObjectSchema.create();
+    }
+
+    /**
+     * Parent recursive reference
+     * @returns a new schema instance
+     */
+    public static parent(): RecursiveObjectSchema {
+        return RecursiveObjectSchema.create();
+    }
+
+    /**
+     * The object should match one of the provided schemas
+     * @param schemas List of schemas
+     * @returns a new schema instance
+     */
+    public static anyOf(schemas: ObjectSchemaI[]): AnyOfObjectSchema {
+        return AnyOfObjectSchema.create(schemas);
+    }
+
+    /**
+     * Schema for object type
+     * @returns a new schema instance
+     */
     public static create(): ObjectSchema {
         return new ObjectSchema();
     }
@@ -103,7 +134,7 @@ export class ObjectSchema extends AbstractObjectSchema {
      * @param schema The schema for the property
      * @returns self
      */
-    public addProperty(propName: string, schema: ObjectSchemaI): ObjectSchema {
+    public withProperty(propName: string, schema: ObjectSchemaI): ObjectSchema {
         if (!this.schema.$props) {
             this.schema.$props = Object.create(null);
         }
@@ -119,7 +150,7 @@ export class ObjectSchema extends AbstractObjectSchema {
      * @param extraPropsSchema Function to determine the schema to use in each case
      * @returns self
      */
-    public setPropertyFilter(extraPropsFilter?: (key: string) => boolean, extraPropsSchema?: (key: string) => ObjectSchemaI): ObjectSchema {
+    public withPropertyFilter(extraPropsFilter?: (key: string) => boolean, extraPropsSchema?: (key: string) => ObjectSchemaI): ObjectSchema {
         this.schema.$extraPropsFilter = extraPropsFilter;
         this.schema.$extraPropsSchema = a => {
             return extraPropsSchema(a).getRawSchema();

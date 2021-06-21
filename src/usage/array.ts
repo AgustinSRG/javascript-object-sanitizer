@@ -36,7 +36,7 @@ export class ArrayObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: any[]): ArrayObjectSchema {
+    public withDefaultValue(defaultValue: any[]): ArrayObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -46,7 +46,7 @@ export class ArrayObjectSchema extends AbstractObjectSchema {
      * @param maxLength The max length for the array.
      * @returns self
      */
-    public setMaxLength(maxLength: number): ArrayObjectSchema {
+    public withMaxLength(maxLength: number): ArrayObjectSchema {
         this.schema.$maxLength = maxLength;
         return this;
     }

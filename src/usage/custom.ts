@@ -39,7 +39,7 @@ export class CustomObjectSchema extends AbstractObjectSchema {
      * @param test Schema tester
      * @returns self
      */
-    public setTester(test: (object: any) => boolean): CustomObjectSchema {
+    public withTester(test: (object: any) => boolean): CustomObjectSchema {
         this.schema.$test = test;
         return this;
     }
@@ -49,7 +49,7 @@ export class CustomObjectSchema extends AbstractObjectSchema {
      * @param sanitize Schema sanitizer
      * @returns self
      */
-    public setSanitizer(sanitize: (object: any) => any): CustomObjectSchema {
+    public withSanitizer(sanitize: (object: any) => any): CustomObjectSchema {
         this.schema.$sanitize = sanitize;
         return this;
     }
