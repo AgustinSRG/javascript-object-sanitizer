@@ -49,11 +49,19 @@ export class ObjectSchema extends AbstractObjectSchema {
     }
 
     /**
-     * Schema to represent a number
+     * Schema to represent a real number
      * @returns a new schema instance
      */
     public static number(): NumberObjectSchema {
         return NumberObjectSchema.create();
+    }
+
+    /**
+     * Schema to represent an integer
+     * @returns a new schema instance
+     */
+    public static integer(): NumberObjectSchema {
+        return NumberObjectSchema.create().forceInteger();
     }
 
     /**
