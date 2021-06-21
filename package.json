@@ -14,6 +14,7 @@
     "compile": "tsc --pretty --declaration && webpack",
     "build": "rimraf dist && npm run compile && npm run gendoc",
     "lint": "eslint --fix src/**/*.ts",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'",
     "gendoc": "typedoc --out docs ./src"
   },
   "files": [
@@ -31,12 +32,16 @@
     "lint"
   ],
   "devDependencies": {
+    "@types/mocha": "^8.2.2",
     "@types/node": "^15.0.2",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
+    "chai": "^4.3.4",
     "eslint": "^7.26.0",
+    "mocha": "^9.0.1",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
     "typedoc": "^0.20.36",
     "typescript": "^4.2.4",
     "webpack": "^5.38.1",
