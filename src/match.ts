@@ -111,7 +111,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
     case "boolean":
         if (typeof object !== "boolean") {
             if (throwException) {
-                throw new Error("Not boolean type " + object);
+                throw new Error("Not boolean type: " + object);
             }
             return false; // Not boolean
         }
