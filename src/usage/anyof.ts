@@ -38,8 +38,8 @@ export class AnyOfObjectSchema extends AbstractObjectSchema {
      * @param defaultSchema The default schema
      * @returns self
      */
-    public withDefaultSchema(defaultSchema: RawObjectSchema): AnyOfObjectSchema {
-        this.schema.$default = defaultSchema;
+    public withDefaultSchema(defaultSchema: ObjectSchemaI): AnyOfObjectSchema {
+        this.schema.$default = defaultSchema.getRawSchema();
         return this;
     }
 }

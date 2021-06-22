@@ -107,6 +107,18 @@ export class ObjectSchema extends AbstractObjectSchema {
     }
 
     /**
+     * Makes schema optional. This means undefined is allowed for test()
+     * @param schema The schema
+     * @returns a new schema instance
+     */
+    public static optional(schema: ObjectSchemaI): AnyOfObjectSchema {
+        return AnyOfObjectSchema.create([
+            ObjectSchema.undefined(),
+            schema
+        ]).withDefaultSchema(schema);
+    }
+
+    /**
      * Schema for object type
      * @returns a new schema instance
      */
