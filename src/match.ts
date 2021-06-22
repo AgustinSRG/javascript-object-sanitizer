@@ -95,7 +95,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
         }
         if (schema.$max !== undefined && object > schema.$max) {
             if (throwException) {
-                throw new Error("Number is greater than max value set " + object);
+                throw new Error("Number is greater than max value set: " + object);
             }
             return false; // Greater than max value
         }
