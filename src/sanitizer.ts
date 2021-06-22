@@ -105,7 +105,10 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
                 for (const prop of Object.keys(schema.$props)) {
                     const child = object[prop];
                     const childSchema = schema.$props[prop];
-                    result[prop] = sanitizeObject(child, childSchema, (parentStack || []).concat(schema), currentRecursion);
+                    const val = sanitizeObject(child, childSchema, (parentStack || []).concat(schema), currentRecursion);
+                    if (val !== undefined) {
+                        result[prop] = val;
+                    }
                 }
             }
             if (schema.$extraPropsFilter !== undefined && schema.$extraPropsSchema !== undefined) {
@@ -116,7 +119,10 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
                     if (!schema.$extraPropsFilter(extraProp)) {
                         continue; // Ignore
                     }
-                    result[extraProp] = sanitizeObject(object[extraProp], schema.$extraPropsSchema(extraProp), (parentStack || []).concat(schema), currentRecursion);
+                    const val = sanitizeObject(object[extraProp], schema.$extraPropsSchema(extraProp), (parentStack || []).concat(schema), currentRecursion);
+                    if (val !== undefined) {
+                        result[extraProp] = val;
+                    }
                 }
             }
 

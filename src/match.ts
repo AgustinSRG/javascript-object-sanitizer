@@ -19,6 +19,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
             if (throwException) {
                 throw new Error("Object not null: " + object);
             }
+            return false;
         }
         return true;
     case "undefined":
@@ -26,6 +27,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
             if (throwException) {
                 throw new Error("Object not undefined: " + object);
             }
+            return false;
         }
         return true;
     case "custom":
