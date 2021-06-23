@@ -93,6 +93,8 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
         }
         return object.map(item => {
             return sanitizeObject(item, schema.$items, (parentStack || []).concat(schema), currentRecursion);
+        }).filter(item => {
+            return item !== undefined;
         });
     case "object":
         if (typeof object !== "object" || object === null) {
