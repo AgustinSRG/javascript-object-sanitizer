@@ -137,7 +137,7 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
         }
         const stack = parentStack || [];
         const cr = currentRecursion || 0;
-        if (schema.$maxRecursion !== undefined && schema.$maxRecursion < cr) {
+        if (schema.$maxRecursion !== undefined && schema.$maxRecursion <= cr) {
             return schema.$default;
         }
         const refSchema = stack[stack.length - schema.$ref];

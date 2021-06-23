@@ -191,7 +191,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
         {
             const stack = parentStack || [];
             const cr = currentRecursion || 0;
-            if (schema.$maxRecursion !== undefined && schema.$maxRecursion < cr) {
+            if (schema.$maxRecursion !== undefined && schema.$maxRecursion <= cr) {
                 if (throwException) {
                     throw new Error("Exceeded recursion limit.");
                 }
