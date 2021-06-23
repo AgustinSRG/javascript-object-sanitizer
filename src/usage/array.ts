@@ -27,6 +27,7 @@ export class ArrayObjectSchema extends AbstractObjectSchema {
         super({
             $type: "array",
             $items: itemsSchema.getRawSchema(),
+            $default: [],
         });
         this.schema = <ArrayRawSchema>this.getRawSchema();
     }
