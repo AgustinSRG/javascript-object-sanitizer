@@ -107,21 +107,25 @@ describe("Object sanitizer testing", () => {
 
     describe("Object restriction testing", () => {
         it('Should ignore any arbitrary properties', () => {
-            const schema = ObjectSchema.create()
-                .withProperty("req", ObjectSchema.string().withDefaultValue(""))
-                .withProperty("req2", ObjectSchema.string().withDefaultValue(""));
+            const schema = ObjectSchema.object({
+                req: ObjectSchema.string().withDefaultValue(""),
+                req2: ObjectSchema.integer().withDefaultValue(0),
+            });
 
-            expect(schema.sanitize({})).to.be.eql({ req: "", req2: "" });
-            expect(schema.sanitize({ req: "a", req2: 1 })).to.be.eql({ req: "a", req2: "1" });
-            expect(schema.sanitize({ req: "a" })).to.be.eql({ req: "a", req2: "" });
-            expect(schema.sanitize({ req: "a", req2: "b", req3: "c" })).to.be.eql({ req: "a", req2: "b" });
+            expect(schema.sanitize({})).to.be.eql({ req: "", req2: 0 });
+            expect(schema.sanitize({ req: 1, req2: "a" })).to.be.eql({ req: "1", req2: 0 });
+            expect(schema.sanitize({ req: "a" })).to.be.eql({ req: "a", req2: 0 });
+            expect(schema.sanitize({ req: "a", req2: 1, req3: "c" })).to.be.eql({ req: "a", req2: 1 });
         });
 
         it('Should ignore properties not accepted by the filter', () => {
-            const schema = ObjectSchema.create()
-                .withPropertyFilter(prop => {
+            const schema = ObjectSchema.dict(
+                prop => {
                     return (/^prop[0-9]+$/).test(prop);
-                }, a => ObjectSchema.string().withDefaultValue(""));
+                },
+                () =>
+                    ObjectSchema.string().withDefaultValue("")
+            )
 
             expect(schema.sanitize({})).to.be.eql({});
             expect(schema.sanitize({ prop1: "a", prop2: "b" })).to.be.eql({ prop1: "a", prop2: "b" });

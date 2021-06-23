@@ -127,11 +127,22 @@ export class ObjectSchema extends AbstractObjectSchema {
     }
 
     /**
-     * Schema for object type
+     * Schema for object type (with a set of properties)
+     * @param props Properties
      * @returns a new schema instance
      */
-     public static object(): ObjectSchema {
-        return new ObjectSchema();
+    public static object(props: { [propName: string]: ObjectSchemaI }): ObjectSchema {
+        return ObjectSchema.create().withProperties(props);
+    }
+
+    /**
+     * Schema for dictionary (key => value)
+     * @param propsFilter Property filter
+     * @param propsSchema Function to determine schema for properties
+     * @returns a new schema instance
+     */
+    public static dict(propsFilter: (key: string) => boolean, propsSchema: (key: string) => ObjectSchemaI): ObjectSchema {
+        return ObjectSchema.create().withPropertyFilter(propsFilter, propsSchema);
     }
 
     private schema: ObjectRawSchema;
@@ -168,6 +179,23 @@ export class ObjectSchema extends AbstractObjectSchema {
         }
 
         this.schema.$props[propName] = schema.getRawSchema();
+
+        return this;
+    }
+
+    /**
+     * Sets required properties for the object
+     * @param props Properties
+     * @returns self
+     */
+    public withProperties(props: { [propName: string]: ObjectSchemaI }): ObjectSchema {
+        if (!this.schema.$props) {
+            this.schema.$props = Object.create(null);
+        }
+
+        for (let prop of Object.keys(props)) {
+            this.schema.$props[prop] = props[prop].getRawSchema();
+        }
 
         return this;
     }
