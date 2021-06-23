@@ -41,16 +41,6 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
     }
 
     /**
-     * Sets default value if max recursion is reached
-     * @param defaultValue The default value
-     * @returns self
-     */
-    public withDefaultValue(defaultValue: any): RecursiveObjectSchema {
-        this.schema.$default = defaultValue;
-        return this;
-    }
-
-    /**
      * Sets max recursion allowed. Default has no limit.
      * @param maxRecursion Max levels of recursion allowed
      * @returns self

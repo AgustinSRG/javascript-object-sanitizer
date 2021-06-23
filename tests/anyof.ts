@@ -5,6 +5,16 @@
 import { expect } from 'chai';
 import { ObjectSchema } from '../src/index';
 
+const schema = ObjectSchema.object({
+    stringProperty: ObjectSchema.string().withDefaultValue(""),
+    integerProperty: ObjectSchema.integer(),
+    positiveNumber: ObjectSchema.number().withMin(0),
+    array: ObjectSchema.array(ObjectSchema.object({
+        arrayItemProp1: ObjectSchema.boolean(),
+    })),
+    optionalProperty: ObjectSchema.optional(ObjectSchema.number()),
+});
+
 describe("Multi-option schema testing", () => {
     it('Should accept only values that match one of the provided schemas', () => {
         const schema = ObjectSchema.anyOf([

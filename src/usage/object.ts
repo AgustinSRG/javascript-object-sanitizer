@@ -158,16 +158,6 @@ export class ObjectSchema extends AbstractObjectSchema {
     }
 
     /**
-     * Sets default value, in case the object is null, undefined or cannot be parsed
-     * @param defaultValue The default value
-     * @returns self
-     */
-    public withDefaultValue(defaultValue: any): ObjectSchema {
-        this.schema.$default = defaultValue;
-        return this;
-    }
-
-    /**
      * Add property to the object schema
      * @param propName The name of the property
      * @param schema The schema for the property
@@ -193,7 +183,7 @@ export class ObjectSchema extends AbstractObjectSchema {
             this.schema.$props = Object.create(null);
         }
 
-        for (let prop of Object.keys(props)) {
+        for (const prop of Object.keys(props)) {
             this.schema.$props[prop] = props[prop].getRawSchema();
         }
 

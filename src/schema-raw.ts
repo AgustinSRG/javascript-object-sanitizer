@@ -43,7 +43,6 @@ export interface ArrayRawSchema {
 
 export interface ObjectRawSchema {
     $type: "object";
-    $default?: any;
     $props?: {[prop: string]: RawObjectSchema};
     $extraPropsFilter?: (key: string) => boolean;
     $extraPropsSchema?: (key: string) => RawObjectSchema;
@@ -57,7 +56,6 @@ export interface AnyOfRawSchema {
 
 export interface RecursiveRawSchema {
     $type: "recursive";
-    $default?: any;
     $ref: number;
     $maxRecursion?: number;
 }

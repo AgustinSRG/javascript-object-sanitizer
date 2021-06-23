@@ -107,6 +107,9 @@ describe("Recursive schemas testing", () => {
             childA: true,
         })).to.be.eql({
             name: "root",
+            childA: {
+                name: "",
+            }
         });
 
         expect(schema.sanitize({

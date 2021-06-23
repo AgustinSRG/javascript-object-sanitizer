@@ -97,48 +97,49 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
             return item !== undefined;
         });
     case "object":
+    {
         if (typeof object !== "object" || object === null) {
-            return schema.$default;
-        } else {
-            const result: any = Object.create(null);
-
-            if (schema.$props !== undefined) {
-                // Required props
-                for (const prop of Object.keys(schema.$props)) {
-                    const child = object[prop];
-                    const childSchema = schema.$props[prop];
-                    const val = sanitizeObject(child, childSchema, (parentStack || []).concat(schema), currentRecursion);
-                    if (val !== undefined) {
-                        result[prop] = val;
-                    }
-                }
-            }
-            if (schema.$extraPropsFilter !== undefined && schema.$extraPropsSchema !== undefined) {
-                for (const extraProp of Object.keys(object)) {
-                    if (schema.$props !== undefined && schema.$props[extraProp] !== undefined) {
-                        continue; // Does not apply
-                    }
-                    if (!schema.$extraPropsFilter(extraProp)) {
-                        continue; // Ignore
-                    }
-                    const val = sanitizeObject(object[extraProp], schema.$extraPropsSchema(extraProp), (parentStack || []).concat(schema), currentRecursion);
-                    if (val !== undefined) {
-                        result[extraProp] = val;
-                    }
-                }
-            }
-
-            return result;
+            object = {};
         }
+        const result: any = Object.create(null);
+
+        if (schema.$props !== undefined) {
+            // Required props
+            for (const prop of Object.keys(schema.$props)) {
+                const child = object[prop];
+                const childSchema = schema.$props[prop];
+                const val = sanitizeObject(child, childSchema, (parentStack || []).concat(schema), currentRecursion);
+                if (val !== undefined) {
+                    result[prop] = val;
+                }
+            }
+        }
+        if (schema.$extraPropsFilter !== undefined && schema.$extraPropsSchema !== undefined) {
+            for (const extraProp of Object.keys(object)) {
+                if (schema.$props !== undefined && schema.$props[extraProp] !== undefined) {
+                    continue; // Does not apply
+                }
+                if (!schema.$extraPropsFilter(extraProp)) {
+                    continue; // Ignore
+                }
+                const val = sanitizeObject(object[extraProp], schema.$extraPropsSchema(extraProp), (parentStack || []).concat(schema), currentRecursion);
+                if (val !== undefined) {
+                    result[extraProp] = val;
+                }
+            }
+        }
+
+        return result;
+    }
     case "recursive":
     {
         if (object === undefined || object === null) {
-            return schema.$default;
+            return undefined;
         }
         const stack = parentStack || [];
         const cr = currentRecursion || 0;
         if (schema.$maxRecursion !== undefined && schema.$maxRecursion <= cr) {
-            return schema.$default;
+            return undefined;
         }
         const refSchema = stack[stack.length - schema.$ref];
         if (refSchema) {

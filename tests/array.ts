@@ -73,11 +73,6 @@ describe("Array sanitizer testing", () => {
         it('Should return default value if undefined or null is given', () => {
             const schema = ObjectSchema.array(ObjectSchema.custom());
 
-            expect(schema.sanitize(undefined)).to.be.equal(undefined);
-            expect(schema.sanitize(null)).to.be.equal(undefined);
-
-            schema.withDefaultValue([]);
-
             expect(schema.sanitize(undefined)).to.be.eql([]);
             expect(schema.sanitize(null)).to.be.eql([]);
 

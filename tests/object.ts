@@ -71,35 +71,14 @@ describe("Object sanitizer testing", () => {
     /* Default value testing */
 
     describe("Default value testing", () => {
-        it('Should return default value if undefined or null is given', () => {
-            const schema = ObjectSchema.create();
+        it('Should return object with default values for all the properties', () => {
+            const schema = ObjectSchema.object({
+                req: ObjectSchema.string().withDefaultValue(""),
+                req2: ObjectSchema.integer().withDefaultValue(0),
+            });;
 
-            expect(schema.sanitize(undefined)).to.be.equal(undefined);
-            expect(schema.sanitize(null)).to.be.equal(undefined);
-
-            schema.withDefaultValue({});
-
-            expect(schema.sanitize(undefined)).to.be.eql({});
-            expect(schema.sanitize(null)).to.be.eql({});
-
-            schema.withDefaultValue({ a: 1 });
-
-            expect(schema.sanitize(undefined)).to.be.eql({ a: 1 });
-            expect(schema.sanitize(null)).to.be.eql({ a: 1 });
-        });
-
-        it('Should return default value anything different from an object is given', () => {
-            const schema = ObjectSchema.create().withDefaultValue({});
-
-            expect(schema.sanitize(undefined)).to.be.eql({});
-            expect(schema.sanitize(null)).to.be.eql({});
-            expect(schema.sanitize(0)).to.be.eql({});
-            expect(schema.sanitize(1)).to.be.eql({});
-            expect(schema.sanitize(NaN)).to.be.eql({});
-            expect(schema.sanitize(true)).to.be.eql({});
-            expect(schema.sanitize(false)).to.be.eql({});
-            expect(schema.sanitize("")).to.be.eql({});
-            expect(schema.sanitize("Random string")).to.be.eql({});
+            expect(schema.sanitize(undefined)).to.be.eql({ req: "", req2: 0 });
+            expect(schema.sanitize(null)).to.be.eql({ req: "", req2: 0 });
         });
     });
 
