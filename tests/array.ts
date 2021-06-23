@@ -102,7 +102,7 @@ describe("Array sanitizer testing", () => {
             expect(schema.sanitize("Random string")).to.be.eql([]);
             expect(schema.sanitize(new Date())).to.be.eql([]);
             expect(schema.sanitize({})).to.be.eql([]);
-            expect(schema.sanitize({length: 3})).to.be.eql([]);
+            expect(schema.sanitize({ length: 3 })).to.be.eql([]);
         });
     });
 

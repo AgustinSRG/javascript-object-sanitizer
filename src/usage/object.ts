@@ -126,6 +126,14 @@ export class ObjectSchema extends AbstractObjectSchema {
         return new ObjectSchema();
     }
 
+    /**
+     * Schema for object type
+     * @returns a new schema instance
+     */
+     public static object(): ObjectSchema {
+        return new ObjectSchema();
+    }
+
     private schema: ObjectRawSchema;
 
     /**
@@ -143,7 +151,7 @@ export class ObjectSchema extends AbstractObjectSchema {
      * @param defaultValue The default value
      * @returns self
      */
-    public setDefaultValue(defaultValue: any): ObjectSchema {
+    public withDefaultValue(defaultValue: any): ObjectSchema {
         this.schema.$default = defaultValue;
         return this;
     }
@@ -170,7 +178,7 @@ export class ObjectSchema extends AbstractObjectSchema {
      * @param extraPropsSchema Function to determine the schema to use in each case
      * @returns self
      */
-    public withPropertyFilter(extraPropsFilter?: (key: string) => boolean, extraPropsSchema?: (key: string) => ObjectSchemaI): ObjectSchema {
+    public withPropertyFilter(extraPropsFilter: (key: string) => boolean, extraPropsSchema: (key: string) => ObjectSchemaI): ObjectSchema {
         this.schema.$extraPropsFilter = extraPropsFilter;
         this.schema.$extraPropsSchema = a => {
             return extraPropsSchema(a).getRawSchema();

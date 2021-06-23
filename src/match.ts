@@ -147,6 +147,9 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
         return true;
     case "object":
         if (typeof object !== "object" || object === null) {
+            if (throwException) {
+                throw new Error("Not an object: " + object);
+            }
             return false; // Not a valid object
         }
         if (schema.$props !== undefined) {
@@ -182,23 +185,10 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
                     throw new Error("[Object] For property [" + extraProp + "]: " + ex.message);
                 }
             }
-        } else {
-            for (const extraProp of Object.keys(object)) {
-                if (schema.$props !== undefined && schema.$props[extraProp] !== undefined) {
-                    continue; // Does not apply
-                }
-                if (throwException) {
-                    throw new Error("Invalid property: " + extraProp);
-                }
-                return false; // Invalid prop
-            }
         }
         return true;
     case "recursive":
         {
-            if (object === undefined || object === null) {
-                return true;
-            }
             const stack = parentStack || [];
             const cr = currentRecursion || 0;
             if (schema.$maxRecursion !== undefined && schema.$maxRecursion < cr) {
