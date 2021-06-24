@@ -1,6 +1,6 @@
 # Javascript Object Sanitizer
 
-
+[![npm version](https://badge.fury.io/js/%40asanrom%2Fjavascript-object-sanitizer.svg)](https://badge.fury.io/js/%40asanrom%2Fjavascript-object-sanitizer)
 [![Dependency Status](https://david-dm.org/AgustinSRG/javascript-object-sanitizer.svg)](https://david-dm.org/AgustinSRG/javascript-object-sanitizer)
 [![devDependency Status](https://david-dm.org/AgustinSRG/javascript-object-sanitizer/dev-status.svg)](https://david-dm.org/AgustinSRG/javascript-object-sanitizer?type=dev)
 
@@ -10,7 +10,7 @@ Forces the input to follow a pre-defined schema. Useful to check `application/js
 
 ## Installation
 
-If you are using it in NodeJS
+If you are using a npm managed project use:
 
 ```
 npm install @asanrom/javascript-object-sanitizer
@@ -21,23 +21,57 @@ If you are using it in the browser, download the minified file from the [Release
 ```html
 <script type="text/javascript" src="/path/to/javascript-object-sanitizer.js"></script>
 ```
+
 ## Usage
 
 Node:
 
 ```ts
+import { ObjectSchema } from '@asanrom/javascript-object-sanitizer';
 
+// With require: const ObjectSchema = require('@asanrom/javascript-object-sanitizer').ObjectSchema;
+
+// Example schema or complex object
+const schema = ObjectSchema.object({
+    stringProperty: ObjectSchema.string().withDefaultValue(""),
+    integerProperty: ObjectSchema.integer(),
+    positiveNumber: ObjectSchema.number().withMin(0),
+    array: ObjectSchema.array(ObjectSchema.object({
+        arrayItemProp1: ObjectSchema.boolean(),
+    })),
+    optionalProperty: ObjectSchema.optional(ObjectSchema.number()),
+});
+
+// Test user input
+schema.test(userInput); // Returns true or false
+
+// Sanitize
+const sanitized = schema.sanitize(userInput); // Forces user input to follow the schema
 ```
 
 Browser:
 
 ```js
+window.ObjectSchema = ObjectSanitizer.ObjectSchema;
 
+// Example schema or complex object
+const schema = ObjectSchema.object({
+    stringProperty: ObjectSchema.string().withDefaultValue(""),
+    integerProperty: ObjectSchema.integer(),
+    positiveNumber: ObjectSchema.number().withMin(0),
+    array: ObjectSchema.array(ObjectSchema.object({
+        arrayItemProp1: ObjectSchema.boolean(),
+    })),
+    optionalProperty: ObjectSchema.optional(ObjectSchema.number()),
+});
+
+// Test user input
+schema.test(userInput); // Returns true or false
+
+// Sanitize
+const sanitized = schema.sanitize(userInput); // Forces user input to follow the schema
 ```
-
-## Examples
-
-
 
 ## Documentation
 
+ - [Library documentation (Auto-generated)]()
