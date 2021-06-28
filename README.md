@@ -74,4 +74,4 @@ const sanitized = schema.sanitize(userInput); // Forces user input to follow the
 
 ## Documentation
 
- - [Library documentation (Auto-generated)]()
+ - [Library documentation (Auto-generated)](https://agustinsrg.github.io/javascript-object-sanitizer/)
