@@ -141,7 +141,18 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
         if (schema.$maxRecursion !== undefined && schema.$maxRecursion <= cr) {
             return undefined;
         }
-        const refSchema = stack[stack.length - schema.$ref];
+        let refSchema = null;
+
+        if (schema.$levelsUp !== undefined) {
+            refSchema = stack[stack.length - schema.$levelsUp];
+        } else if (schema.$ref !== undefined) {
+            for (let i = stack.length - 1; i >= 0; i--) {
+                if ((<any>stack[i]).$id === schema.$ref) {
+                    refSchema = stack[i];
+                    break;
+                }
+            }
+        }
         if (refSchema) {
             return sanitizeObject(object, refSchema, stack, cr + 1);
         } else {
@@ -150,11 +161,11 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
     }
     case "anyof":
         for (const schemaOption of schema.$schemas) {
-            if (matchesSchema(object, schemaOption, false, parentStack, currentRecursion)) {
-                return sanitizeObject(object, schemaOption, parentStack, currentRecursion);
+            if (matchesSchema(object, schemaOption, false, (parentStack || []).concat(schema), currentRecursion)) {
+                return sanitizeObject(object, schemaOption, (parentStack || []).concat(schema), currentRecursion);
             }
         }
-        return sanitizeObject(object, schema.$default, parentStack, currentRecursion);
+        return sanitizeObject(object, schema.$default, (parentStack || []).concat(schema), currentRecursion);
     default:
         return undefined;
     }

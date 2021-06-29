@@ -197,7 +197,18 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
                 }
                 return false; // Too much recursion
             }
-            const refSchema = stack[stack.length - schema.$ref];
+            let refSchema = null;
+
+            if (schema.$levelsUp !== undefined) {
+                refSchema = stack[stack.length - schema.$levelsUp];
+            } else if (schema.$ref !== undefined) {
+                for (let i = stack.length - 1; i >= 0; i--) {
+                    if ((<any>stack[i]).$id === schema.$ref) {
+                        refSchema = stack[i];
+                        break;
+                    }
+                }
+            }
             if (refSchema) {
                 if (!matchesSchema(object, refSchema, throwException, stack, cr + 1)) {
                     return false; // Does not match schema
@@ -209,7 +220,7 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
         return true;
     case "anyof":
         for (const schemaOption of schema.$schemas) {
-            if (matchesSchema(object, schemaOption, false, parentStack, currentRecursion)) {
+            if (matchesSchema(object, schemaOption, false, (parentStack || []).concat(schema), currentRecursion)) {
                 return true; // Matches one of the schemas
             }
         }

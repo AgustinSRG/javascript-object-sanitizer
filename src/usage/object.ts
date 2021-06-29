@@ -16,6 +16,16 @@ import { StringObjectSchema } from "./string";
  * Object schema
  */
 export class ObjectSchema extends AbstractObjectSchema {
+
+    /**
+     * Schema from raw representation
+     * @param raw Raw schema representation
+     * @returns a new schema instance
+     */
+    public static fromRaw(raw: ObjectRawSchema): ObjectSchemaI {
+        return new AbstractObjectSchema(raw);
+    }
+
     /**
      * Schema to represent the null value
      * @returns a new schema instance
@@ -94,7 +104,7 @@ export class ObjectSchema extends AbstractObjectSchema {
      * @returns a new schema instance
      */
     public static parent(): RecursiveObjectSchema {
-        return RecursiveObjectSchema.create();
+        return RecursiveObjectSchema.create().withLevelsUp(1);
     }
 
     /**
@@ -201,6 +211,17 @@ export class ObjectSchema extends AbstractObjectSchema {
         this.schema.$extraPropsSchema = a => {
             return extraPropsSchema(a).getRawSchema();
         };
+        return this;
+    }
+
+    /**
+     * Sets the ID for this schema to be referenced by its children
+     * for recursion
+     * @param id The identifier of the schema node
+     * @returns self
+     */
+    public withId(id: string): ObjectSchema {
+        this.schema.$id = id;
         return this;
     }
 }

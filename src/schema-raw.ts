@@ -39,6 +39,7 @@ export interface ArrayRawSchema {
     $default?: any[];
     $maxLength?: number;
     $items: RawObjectSchema;
+    $id?: string;
 }
 
 export interface ObjectRawSchema {
@@ -46,17 +47,20 @@ export interface ObjectRawSchema {
     $props?: {[prop: string]: RawObjectSchema};
     $extraPropsFilter?: (key: string) => boolean;
     $extraPropsSchema?: (key: string) => RawObjectSchema;
+    $id?: string;
 }
 
 export interface AnyOfRawSchema {
     $type: "anyof";
     $default: RawObjectSchema;
     $schemas: RawObjectSchema[];
+    $id?: string;
 }
 
 export interface RecursiveRawSchema {
     $type: "recursive";
-    $ref: number;
+    $ref?: string;
+    $levelsUp?: number;
     $maxRecursion?: number;
 }
 

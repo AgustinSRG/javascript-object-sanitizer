@@ -25,7 +25,6 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
     constructor() {
         super({
             $type: "recursive",
-            $ref: 1,
         });
         this.schema = <RecursiveRawSchema>this.getRawSchema();
     }
@@ -35,8 +34,18 @@ export class RecursiveObjectSchema extends AbstractObjectSchema {
      * @param up Levels to raise in the schema
      * @returns self
      */
-    public withReference(up: number): RecursiveObjectSchema {
-        this.schema.$ref = up;
+    public withLevelsUp(up: number): RecursiveObjectSchema {
+        this.schema.$levelsUp = up;
+        return this;
+    }
+
+    /**
+     * Sets the recursive reference, based on parent id
+     * @param ref The Node id to reference
+     * @returns self
+     */
+    public withReference(ref: string): RecursiveObjectSchema {
+        this.schema.$ref = ref;
         return this;
     }
 

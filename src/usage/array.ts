@@ -51,4 +51,15 @@ export class ArrayObjectSchema extends AbstractObjectSchema {
         this.schema.$maxLength = maxLength;
         return this;
     }
+
+    /**
+     * Sets the ID for this schema to be referenced by its children
+     * for recursion
+     * @param id The identifier of the schema node
+     * @returns self
+     */
+    public withId(id: string): ArrayObjectSchema {
+        this.schema.$id = id;
+        return this;
+    }
 }

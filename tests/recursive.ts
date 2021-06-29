@@ -9,9 +9,9 @@ describe("Recursive schemas testing", () => {
     it('Should properly apply parent schema', () => {
         const schema = ObjectSchema.object({
             name: ObjectSchema.string().withDefaultValue(""),
-            childA: ObjectSchema.optional(ObjectSchema.parent()),
-            childB: ObjectSchema.optional(ObjectSchema.parent()),
-        });
+            childA: ObjectSchema.optional(ObjectSchema.recursive().withReference("node")),
+            childB: ObjectSchema.optional(ObjectSchema.recursive().withReference("node")),
+        }).withId("node");
 
         // Match
 
@@ -126,9 +126,9 @@ describe("Recursive schemas testing", () => {
     it('Should reject recursion deeper than allowed', () => {
         const schema = ObjectSchema.object({
             name: ObjectSchema.string().withDefaultValue(""),
-            childA: ObjectSchema.optional(ObjectSchema.parent().withMaxRecursion(1)),
-            childB: ObjectSchema.optional(ObjectSchema.parent().withMaxRecursion(1)),
-        });
+            childA: ObjectSchema.optional(ObjectSchema.recursive().withReference("node").withMaxRecursion(1)),
+            childB: ObjectSchema.optional(ObjectSchema.recursive().withReference("node").withMaxRecursion(1)),
+        }).withId("node");
 
         // Match
 
