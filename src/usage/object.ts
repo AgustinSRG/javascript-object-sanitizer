@@ -2,7 +2,8 @@
 
 "use strict";
 
-import { ObjectRawSchema } from "../schema-raw";
+import { extendObjectSchema } from "../extends";
+import { ObjectRawSchema, RawObjectSchema } from "../schema-raw";
 import { AnyOfObjectSchema } from "./anyof";
 import { ArrayObjectSchema } from "./array";
 import { BooleanObjectSchema } from "./boolean";
@@ -126,6 +127,28 @@ export class ObjectSchema extends AbstractObjectSchema {
             ObjectSchema.undefined(),
             schema
         ]).withDefaultSchema(schema);
+    }
+
+    /**
+     * Extends schema. For object schemas with pre-defined keys
+     * @param schema Parent schema
+     * @param ext Extension info
+     * @returns Extended schema
+     */
+    public static extend(schema: ObjectSchemaI, ext: { [id: string]: { [prop: string]: ObjectSchemaI } }): ObjectSchemaI {
+        if (!ext) {
+            ext = Object.create(null);
+        }
+        const extRaw: { [id: string]: { [prop: string]: RawObjectSchema } } = Object.create(null);
+        for (const id of Object.keys(ext)) {
+            extRaw[id] = Object.create(null);
+            if (ext[id]) {
+                for (const key of Object.keys(ext[id])) {
+                    extRaw[id][key] = ext[id][key].getRawSchema();
+                }
+            }
+        }
+        return new AbstractObjectSchema(extendObjectSchema(schema.getRawSchema(), extRaw));
     }
 
     /**
