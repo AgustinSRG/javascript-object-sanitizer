@@ -1,8 +1,6 @@
 # Javascript Object Sanitizer
 
 [![npm version](https://badge.fury.io/js/%40asanrom%2Fjavascript-object-sanitizer.svg)](https://badge.fury.io/js/%40asanrom%2Fjavascript-object-sanitizer)
-[![Dependency Status](https://david-dm.org/AgustinSRG/javascript-object-sanitizer.svg)](https://david-dm.org/AgustinSRG/javascript-object-sanitizer)
-[![devDependency Status](https://david-dm.org/AgustinSRG/javascript-object-sanitizer/dev-status.svg)](https://david-dm.org/AgustinSRG/javascript-object-sanitizer?type=dev)
 
 Object sanitizer for javascript and typescript.
 
