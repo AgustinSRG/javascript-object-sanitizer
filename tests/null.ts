@@ -106,19 +106,21 @@ describe("Null and undefined schemas testing", () => {
         expect(schema.sanitize(BigInt(20))).to.be.equal(null);
     });
 
-    it('Should acccept optional values', () => {
+    it('Should accept optional values', () => {
         const schema = ObjectSchema.create()
             .withProperty("req", ObjectSchema.string().withDefaultValue(""))
             .withProperty("opt", ObjectSchema.optional(ObjectSchema.string().withDefaultValue("")));
 
         expect(schema.test({ req: "Example Required", opt: "Example Optional" })).to.be.true;
         expect(schema.test({ req: "Example Required" })).to.be.true;
+        expect(schema.test({ req: "Example Required", opt: null})).to.be.true;
 
         expect(schema.test({ opt: "Example Optional" })).to.be.false;
         expect(schema.test({})).to.be.false;
 
         expect(schema.sanitize({ req: "Example Required", opt: "Example Optional" })).to.be.eql({ req: "Example Required", opt: "Example Optional" });
         expect(schema.sanitize({ req: "Example Required" })).to.be.eql({ req: "Example Required" });
+        expect(schema.sanitize({ req: "Example Required", opt: null })).to.be.eql({ req: "Example Required" });
         expect(schema.sanitize({ opt: "Example Optional" })).to.be.eql({ req: "", opt: "Example Optional" });
         expect(schema.sanitize({})).to.be.eql({ req: "" });
     });

@@ -30,6 +30,14 @@ export function matchesSchema(object: any, schema: RawObjectSchema, throwExcepti
             return false;
         }
         return true;
+    case "null-undefined":
+        if (object !== null && object !== undefined) {
+            if (throwException) {
+                throw new Error("Object not null or undefined: " + object);
+            }
+            return false;
+        }
+        return true;
     case "custom":
     {
         const customTestRes = schema.$test(object);

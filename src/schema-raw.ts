@@ -65,7 +65,7 @@ export interface RecursiveRawSchema {
 }
 
 export interface NullOrUndefinedRawSchema {
-    $type: "null" | "undefined";
+    $type: "null" | "undefined" | "null-undefined";
 }
 
 export type RawObjectSchema = CustomSanitizeRawSchema | NullOrUndefinedRawSchema | BooleanRawSchema | StringRawSchema | NumberRawSchema | ArrayRawSchema | ObjectRawSchema | RecursiveRawSchema | AnyOfRawSchema;
