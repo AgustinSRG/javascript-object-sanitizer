@@ -11,6 +11,8 @@ export function extendObjectSchema(schema: RawObjectSchema, ext: { [id: string]:
         return { $type: "null" };
     case "undefined":
         return { $type: "undefined" };
+    case "null-undefined":
+        return { $type: "null-undefined" };
     case "custom":
     {
         return {

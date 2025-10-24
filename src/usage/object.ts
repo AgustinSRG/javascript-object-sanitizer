@@ -124,8 +124,8 @@ export class ObjectSchema extends AbstractObjectSchema {
      */
     public static optional(schema: ObjectSchemaI): AnyOfObjectSchema {
         return AnyOfObjectSchema.create([
+            schema,
             new AbstractObjectSchema({ $type: "null-undefined" }),
-            schema
         ]).withDefaultSchema(schema);
     }
 

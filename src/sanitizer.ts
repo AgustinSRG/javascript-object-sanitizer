@@ -16,6 +16,7 @@ export function sanitizeObject(object: any, schema: RawObjectSchema, parentStack
         case "null":
             return null;
         case "undefined":
+            return undefined;
         case "null-undefined":
             return undefined;
         case "custom":
